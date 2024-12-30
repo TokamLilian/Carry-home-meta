@@ -1,0 +1,373 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/9/2024 9:59:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HEMLE-XPS"
+  DTS:CreatorName="HEMLE-XPS\tokam"
+  DTS:DTSID="{D083591F-BDA4-4A03-9C29-A89F309C2386}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="30"
+  DTS:VersionGUID="{6FCDE8B9-BF40-4141-9397-533960CE5715}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Carry_Home_Meta]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+      DTS:ObjectName="LocalHost.Carry_Home_Meta">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Carry_home_meta;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{CA86E8E8-750E-4C00-8267-4C116A683BF7}LocalHost.Carry_Home_Meta;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Tables_Row_Count.sql]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{5507C749-D809-418C-A08F-FCBDA9F375C5}"
+      DTS:ObjectName="Tables_Row_Count.sql">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="C:\Users\tokam\Documents\Big Projects\Year 2024\Data\repos\Carry-home-META\Meta-SQL\Stored Procedures\DB Meta Data\Tables_Row_Count.sql" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Views_Row_Count.sql]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{45133976-80A7-47DC-B1AE-F516FA8568A4}"
+      DTS:ObjectName="Views_Row_Count.sql">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="C:\Users\tokam\Documents\Big Projects\Year 2024\Data\repos\Carry-home-META\Meta-SQL\Stored Procedures\DB Meta Data\Views_Row_Count.sql" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load number of lines of views and tables"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{507374C6-658D-43E1-915F-686E8BA5C378}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load number of lines of views and tables">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load number of lines of views and tables\Load Number of lines in all tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{03CBAA37-BE25-4A19-AB96-9F77423B5318}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Number of lines in all tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+              SQLTask:SqlStmtSourceType="FileConnection"
+              SQLTask:SqlStatementSource="Tables_Row_Count.sql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load number of lines of views and tables\Load Number of lines in all views"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{b04a4648-00cb-4193-b495-02362cf11bb0}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Number of lines in all views"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+              SQLTask:SqlStmtSourceType="FileConnection"
+              SQLTask:SqlStatementSource="Views_Row_Count.sql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load number of lines of views and tables.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{1B8D8819-3340-434E-93BF-C59CB1BB2388}"
+          DTS:From="Package\Load number of lines of views and tables\Load Number of lines in all tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Load number of lines of views and tables\Load Number of lines in all views" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load profiles"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{27135BA1-1D40-4FD3-A17F-B7A869D925A1}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load profiles">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load profiles\Load All Columns"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{237e642d-7a80-4971-8017-996f7982511c}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load All Columns"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+              SQLTask:SqlStatementSource="DECLARE @SQL varchar(max)&#xA;SET @SQL=''&#xA;SELECT @SQL=@SQL+'UNION&#xA;select &#xA;'''+d.name+''' as DatabaseName, sh.name as SchemaName, o.name as Table_Name, o.object_id as Table_ID, c.name as Column_Name, c.column_id as Column_Id, SYSDATETIME()&#xA;from '+d.name+'.sys.columns            c&#xA;    inner join '+d.name+'.sys.objects  o on c.object_id=o.object_id&#xA;    INNER JOIN '+d.name+'.sys.schemas  sh on o.schema_id=sh.schema_id&#xA;&#x9;WHERE sh.name NOT IN (''sys'', ''dbo'')&#xA;&#x9;--WHERE '+d.name+' NOT IN (''SSISDB'') &#xA;'&#xA;FROM sys.databases d&#xA;WHERE d.name NOT IN ('SSISDB', 'master', 'msdb', 'model', 'tempdb') &#xA;SELECT @SQL=RIGHT(@SQL,LEN(@SQL)-5)+'order by 1,3'&#xA;--print @SQL&#xA;&#xA;INSERT INTO powerbi.AllColumns (&#xA;&#x9;DatabaseName&#xA;&#x9;,SchemaName&#x9;&#xA;&#x9;,Table_Name&#x9;&#xA;&#x9;,Table_ID&#x9;&#xA;&#x9;,Column_Name&#xA;&#x9;,Column_Id&#xA;&#x9;,Load_date&#x9;&#xA;&#x9;)&#xA;EXEC (@SQL)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load profiles\Load All Databases"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{F4F2BE56-E8F2-4137-9F2E-3322B8A867E9}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load All Databases"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+              SQLTask:SqlStatementSource="INSERT INTO powerbi.AllDatabases(&#xA;      [Databse_Id]&#xA;      ,[DatabseName]&#xA;      ,[Creation_Date]&#xA;      ,[Is_Read_Only]&#xA;      ,[LOAD_DATE]&#xA;)&#xA;&#xA;SELECT&#xA;      [database_id]&#xA;      ,[name]&#xA;      ,[create_date]&#xA;      ,[is_read_only]&#xA;      ,SYSDATETIME()&#xA;     &#xA;  FROM [sys].[databases] d&#xA;  WHERE d.name NOT IN ('SSISDB', 'master', 'msdb', 'model', 'tempdb')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load profiles\Load All Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5edaf370-e37d-4975-aa9c-60b84a607d60}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load All Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+              SQLTask:SqlStatementSource="INSERT INTO powerbi.AllTables (DatabaseName, SchemaName, Table_Id, Table_Name, LOAD_DATE)&#xA; &#xA;EXEC sp_msforeachdb '&#xA;IF ''?'' NOT IN (''msdb'', ''master'', ''SSISDB'', ''tempdb'')&#xA;BEGIN&#xA;    select ''?'', s.name, t.object_id, t.name, SYSDATETIME()&#xA;    from [?].sys.tables t &#xA;    inner join [?].sys.schemas s on t.schema_id = s.schema_id;&#xA;END&#xA;';" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load profiles\Load All Views"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{81ecb658-74da-46b1-a187-28d97d3d0e56}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load All Views"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+              SQLTask:SqlStatementSource="INSERT INTO powerbi.AllViews (DatabaseName, SchemaName, View_Id, View_Name, LOAD_DATE)&#xA; &#xA;EXEC sp_msforeachdb '&#xA;IF ''?'' NOT IN (''msdb'', ''master'', ''SSISDB'', ''tempdb'')&#xA;BEGIN&#xA;   SELECT ''?'', s.name, v.object_id, v.name, SYSDATETIME() &#xA;&#xA;   FROM [?].sys.views v inner join [?].sys.schemas s on v.schema_id = s.schema_id&#xA;END&#xA;';" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load profiles.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{3D3A3B22-A534-4C74-BA2C-49A235F13C6D}"
+          DTS:From="Package\Load profiles\Load All Databases"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Load profiles\Load All Tables" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load profiles.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{3DBC238F-AAF4-414C-BA0E-E036534A48B9}"
+          DTS:From="Package\Load profiles\Load All Tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Load profiles\Load All Views" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load profiles.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{DCDF643D-CCC8-4D11-A673-FDAF55CD8728}"
+          DTS:From="Package\Load profiles\Load All Views"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Load profiles\Load All Columns" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="237.333333333334,42.6666666666667"
+          Id="Package\Load number of lines of views and tables\Load Number of lines in all tables"
+          TopLeft="34.4166454883921,6.71929736665197" />
+        <NodeLayout
+          Size="234.666666666667,42.6666666666667"
+          Id="Package\Load number of lines of views and tables\Load Number of lines in all views"
+          TopLeft="27.5416457957283,120.982454006802" />
+        <EdgeLayout
+          Id="Package\Load number of lines of views and tables.PrecedenceConstraints[Constraint]"
+          TopLeft="153.083312155059,49.3859640333186">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-8.20833302599712,71.5964899734834"
+              Start="0,0"
+              End="-8.20833302599712,64.0964899734834">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.7982449867417" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.7982449867417"
+                    Point2="0,35.7982449867417"
+                    Point3="-4,35.7982449867417" />
+                  <mssgle:LineSegment
+                    End="-4.20833302599712,35.7982449867417" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-4.20833302599712,35.7982449867417"
+                    Point2="-8.20833302599712,35.7982449867417"
+                    Point3="-8.20833302599712,39.7982449867417" />
+                  <mssgle:LineSegment
+                    End="-8.20833302599712,64.0964899734834" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="301.333333333334,296.666666666667"
+          Size="301.333333333334,339.333333333334"
+          Id="Package\Load number of lines of views and tables"
+          TopLeft="552,31" />
+        <NodeLayout
+          Size="165.333333333334,42"
+          Id="Package\Load profiles\Load All Columns"
+          TopLeft="78,256" />
+        <NodeLayout
+          Size="192,42.6666666666667"
+          Id="Package\Load profiles\Load All Databases"
+          TopLeft="55.7499953620137,12.9473674444281" />
+        <NodeLayout
+          Size="180,42.6666666666667"
+          Id="Package\Load profiles\Load All Tables"
+          TopLeft="63.1249953899533,88.4210508811673" />
+        <NodeLayout
+          Size="150.666666666667,42"
+          Id="Package\Load profiles\Load All Views"
+          TopLeft="79,164" />
+        <EdgeLayout
+          Id="Package\Load profiles.PrecedenceConstraints[Constraint]"
+          TopLeft="152.437495375984,55.9473674444281">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.4736834367392"
+              Start="0,0"
+              End="0,24.9736834367392">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.9736834367392" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load profiles.PrecedenceConstraints[Constraint 1]"
+          TopLeft="153.812497694977,131.421050881167">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.5789491188327"
+              Start="0,0"
+              End="0,25.0789491188327">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.0789491188327" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load profiles.PrecedenceConstraints[Constraint 2]"
+          TopLeft="157.5,206">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="401.333333333334,362.666666666667"
+          Size="401.333333333334,406"
+          Id="Package\Load profiles"
+          TopLeft="59.9999973177911,32.842104902558" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

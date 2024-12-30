@@ -1,0 +1,188 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/9/2024 10:00:37 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HEMLE-XPS"
+  DTS:CreatorName="HEMLE-XPS\tokam"
+  DTS:DTSID="{DCDA5E19-1D1E-49D6-83EB-03A468B1D34C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="19"
+  DTS:VersionGUID="{CFCE66C2-02F1-4B31-80F2-7199C416001B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Carry_Home_Meta]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E692F295-E0DA-4305-BA6E-8CE98D3891D0}"
+      DTS:ObjectName="LocalHost.Carry_Home_Meta">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Carry_home_meta;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{E692F295-E0DA-4305-BA6E-8CE98D3891D0}LocalHost.Carry_Home_Meta;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load All Executions"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{0475a681-696a-4741-98bf-8307aa8d831b}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load All Executions"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E692F295-E0DA-4305-BA6E-8CE98D3891D0}"
+          SQLTask:SqlStatementSource="INSERT INTO powerbi.Executions (&#xA;   Execution_Id&#xA;   ,Job_Id &#xA;   ,Step_Id&#xA;   ,Step_Name&#xA;   ,Announcement&#xA;   ,Execution_Status&#xA;   ,Execution_Date &#xA;   ,Time_of_Execution &#xA;   ,Execution_Duration_MS &#xA;   ,Number_of_retries&#xA;   ,LOAD_DATE&#xA;)&#xA;SELECT&#xA;       [instance_id]&#xA;      ,[job_id]&#xA;      ,[step_id]&#xA;      ,[step_name]&#xA;      ,[message]&#xA;      ,[run_status]&#xA;      ,[run_date]&#xA;      ,[run_time]&#xA;      ,[run_duration]&#xA;      ,[retries_attempted]&#xA;      ,SYSDATETIME()&#xA;  FROM [msdb].[dbo].[sysjobhistory] AS t1&#xA;&#xA;WHERE (NOT EXISTS&#xA;                          (SELECT   1 AS Expr1&#xA;                                 FROM powerbi.Executions AS t2&#xA;                                WHERE (t1.instance_id = Execution_id)))" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load All Jobs"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1812EF27-EF37-4258-B2C0-FA90D7F62476}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load All Jobs"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E692F295-E0DA-4305-BA6E-8CE98D3891D0}"
+          SQLTask:SqlStatementSource="INSERT INTO powerbi.Jobs(Job_Id&#xA;,Job_Name&#xA;,Sever_Id&#xA;,Is_Enabled&#xA;,Described&#xA;,Category&#xA;,Start_Step_Id&#xA;,Date_Created&#xA;,Date_Modified&#xA;,Number_of_Versions&#xA;,LOAD_DATE)&#xA;&#xA;SELECT&#xA;       [job_id]&#xA;      ,[name]&#xA;      ,[originating_server_id]&#xA;      ,[enabled]&#xA;      ,[description]&#xA;      ,[category_id]&#xA;      ,[start_step_id]&#xA;      ,[date_created]&#xA;      ,[date_modified]&#xA;      ,[version_number]&#xA;      ,SYSDATETIME()&#xA;  FROM [msdb].[dbo].[sysjobs]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load All Schedules"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{93daa335-1d5a-42ac-8d70-b5a82133c1cc}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load All Schedules"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E692F295-E0DA-4305-BA6E-8CE98D3891D0}"
+          SQLTask:SqlStatementSource="INSERT INTO powerbi.Schedules(&#xA;   Schedule_Id&#xA;   ,Job_Id &#xA;   ,Next_Run_Date &#xA;   ,Next_Run_Time&#xA;   ,LOAD_DATE&#xA;)&#xA;SELECT &#xA;       [schedule_id]&#xA;      ,[job_id]&#xA;      ,[next_run_date]&#xA;      ,[next_run_time]&#xA;      ,SYSDATETIME()&#xA;  FROM [msdb].[dbo].[sysjobschedules]&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{A725133F-A332-47D6-B981-DC83F2E31DA6}"
+      DTS:From="Package\Load All Jobs"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load All Executions" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{D631BB5D-FD82-4598-B6F4-BFB41B7A51BF}"
+      DTS:From="Package\Load All Executions"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load All Schedules" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="173.333333333334,42.6666666666667"
+          Id="Package\Load All Executions"
+          TopLeft="38.7499982677401,148.508771426487" />
+        <NodeLayout
+          Size="144,42.6666666666667"
+          Id="Package\Load All Jobs"
+          TopLeft="38.7499982677401,45.8421047598206" />
+        <NodeLayout
+          Size="170.666666666667,42.6666666666667"
+          Id="Package\Load All Schedules"
+          TopLeft="39.3749982398004,268.210523370891" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="110.74999826774,88.5087714264873">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="14.6666666666667,59.9999999999997"
+              Start="0,0"
+              End="14.6666666666667,52.4999999999997">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.9999999999999" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.9999999999999"
+                    Point2="0,29.9999999999999"
+                    Point3="4,29.9999999999999" />
+                  <mssgle:LineSegment
+                    End="10.6666666666667,29.9999999999999" />
+                  <mssgle:CubicBezierSegment
+                    Point1="10.6666666666667,29.9999999999999"
+                    Point2="14.6666666666667,29.9999999999999"
+                    Point3="14.6666666666667,33.9999999999999" />
+                  <mssgle:LineSegment
+                    End="14.6666666666667,52.4999999999997" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="125.06249825377,191.175438093154">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,77.0350852777372"
+              Start="0,0"
+              End="0,69.5350852777372">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,69.5350852777372" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

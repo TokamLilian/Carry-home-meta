@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE powerbi.InsertTableRowCounts
+﻿CREATE PROCEDURE powerbi.InsertViewsRowsCounts
 AS
 BEGIN
 

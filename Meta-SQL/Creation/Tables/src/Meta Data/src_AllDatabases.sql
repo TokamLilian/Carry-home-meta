@@ -1,0 +1,6 @@
+﻿CREATE TABLE src.AllDatabases(
+	Databse_Id INT NOT NULL PRIMARY KEY
+	,DatabseName VARCHAR (100) NOT NULL
+	,Is_Read_Only VARCHAR (100)
+	,LOAD_DATE DATETIME
+)

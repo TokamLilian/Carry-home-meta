@@ -7,15 +7,27 @@
   DTS:CreatorName="HEMLE-XPS\tokam"
   DTS:DTSID="{D083591F-BDA4-4A03-9C29-A89F309C2386}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="30"
-  DTS:VersionGUID="{6FCDE8B9-BF40-4141-9397-533960CE5715}">
+  DTS:VersionBuild="34"
+  DTS:VersionGUID="{FBAF52BB-4B45-4F72-B3FE-6BCD80826796}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Carry_home_meta]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{10BFAE43-3B49-4084-94CE-DE27C45B1D93}"
+      DTS:ObjectName="LocalHost.Carry_home_meta">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Carry_home_meta;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{10BFAE43-3B49-4084-94CE-DE27C45B1D93}LocalHost.Carry_home_meta;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[LocalHost.Carry_Home_Meta]"
       DTS:CreationName="OLEDB"
@@ -55,6 +67,7 @@
       DTS:refId="Package\Load number of lines of views and tables"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
+      DTS:Disabled="True"
       DTS:DTSID="{507374C6-658D-43E1-915F-686E8BA5C378}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -107,6 +120,62 @@
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint"
           DTS:To="Package\Load number of lines of views and tables\Load Number of lines in all views" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load number of lines of views and tables new"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{ea658334-f22e-46c7-aafa-9650a1867615}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load number of lines of views and tables new">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load number of lines of views and tables new\Load Number of lines in all tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9dd4e129-200c-44b5-a116-41caad2bd6b1}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Number of lines in all tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+              SQLTask:SqlStatementSource="EXEC powerbi.InsertTablesRowsCounts" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load number of lines of views and tables new\Load Number of lines in all views"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{b6b1b3f2-ee41-4223-935b-6266680a6ecf}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Number of lines in all views"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CA86E8E8-750E-4C00-8267-4C116A683BF7}"
+              SQLTask:SqlStatementSource="EXEC powerbi.InsertViewsRowsCounts" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load number of lines of views and tables new.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{5ef0bfef-d2ab-4b00-9b05-1dfb0695aaa8}"
+          DTS:From="Package\Load number of lines of views and tables new\Load Number of lines in all tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Load number of lines of views and tables new\Load Number of lines in all views" />
       </DTS:PrecedenceConstraints>
     </DTS:Executable>
     <DTS:Executable
@@ -229,11 +298,11 @@
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="237.333333333334,42.6666666666667"
+          Size="237,43"
           Id="Package\Load number of lines of views and tables\Load Number of lines in all tables"
           TopLeft="34.4166454883921,6.71929736665197" />
         <NodeLayout
-          Size="234.666666666667,42.6666666666667"
+          Size="235,43"
           Id="Package\Load number of lines of views and tables\Load Number of lines in all views"
           TopLeft="27.5416457957283,120.982454006802" />
         <EdgeLayout
@@ -273,24 +342,24 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="301.333333333334,296.666666666667"
-          Size="301.333333333334,339.333333333334"
+          PanelSize="277,377"
+          Size="277,420"
           Id="Package\Load number of lines of views and tables"
-          TopLeft="552,31" />
+          TopLeft="551,47" />
         <NodeLayout
-          Size="165.333333333334,42"
+          Size="165,42"
           Id="Package\Load profiles\Load All Columns"
           TopLeft="78,256" />
         <NodeLayout
-          Size="192,42.6666666666667"
+          Size="192,43"
           Id="Package\Load profiles\Load All Databases"
           TopLeft="55.7499953620137,12.9473674444281" />
         <NodeLayout
-          Size="180,42.6666666666667"
+          Size="180,43"
           Id="Package\Load profiles\Load All Tables"
           TopLeft="63.1249953899533,88.4210508811673" />
         <NodeLayout
-          Size="150.666666666667,42"
+          Size="151,42"
           Id="Package\Load profiles\Load All Views"
           TopLeft="79,164" />
         <EdgeLayout
@@ -362,10 +431,59 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="401.333333333334,362.666666666667"
-          Size="401.333333333334,406"
+          PanelSize="401,363"
+          Size="401,406"
           Id="Package\Load profiles"
-          TopLeft="59.9999973177911,32.842104902558" />
+          TopLeft="59.9999973177911,48.842104902558" />
+        <NodeLayout
+          Size="237,43"
+          Id="Package\Load number of lines of views and tables new\Load Number of lines in all tables"
+          TopLeft="34.4166454883921,6.71929736665197" />
+        <NodeLayout
+          Size="235,43"
+          Id="Package\Load number of lines of views and tables new\Load Number of lines in all views"
+          TopLeft="27.5416457957283,120.982454006802" />
+        <EdgeLayout
+          Id="Package\Load number of lines of views and tables new.PrecedenceConstraints[Constraint]"
+          TopLeft="153.083312155059,49.3859640333186">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-8.20833302599712,71.5964899734834"
+              Start="0,0"
+              End="-8.20833302599712,64.0964899734834">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.7982449867417" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.7982449867417"
+                    Point2="0,35.7982449867417"
+                    Point3="-4,35.7982449867417" />
+                  <mssgle:LineSegment
+                    End="-4.20833302599712,35.7982449867417" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-4.20833302599712,35.7982449867417"
+                    Point2="-8.20833302599712,35.7982449867417"
+                    Point3="-8.20833302599712,39.7982449867417" />
+                  <mssgle:LineSegment
+                    End="-8.20833302599712,64.0964899734834" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="324,367"
+          Size="324,410"
+          Id="Package\Load number of lines of views and tables new"
+          TopLeft="913.416645488392,58.719297366652" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

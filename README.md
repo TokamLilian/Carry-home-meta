@@ -51,8 +51,8 @@ git clone https://github.com/TokamLilian/Carry-home-meta.git
    - You must have access to execute queries on both of these system databases.  
 
 2. **Publish the SQL Scripts**:  
-   - Open and publish the provided SQL directory from solution `Carry-Home-Meta.sln` in Microsoft Visual Studio or similar application.  
-   - Deploy the SSIS packages in `Integration Services` on SSMS.  
+   - Open and publish the provided SQL directory using loaded profile (publish scipt) `Meta-SQL.publish.xml` from solution `Carry-Home-Meta.sln` in Microsoft Visual Studio or similar application.  
+   - In `Integration Services Catalogs`, deploy the SSIS packages under the folder `CarryHomeMeta` (spelling super important).  
 
 3. **Verify deployed files**:
     - Verify that the SSIS packages are deployed in the SSIS catalog.

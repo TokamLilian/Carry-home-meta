@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Meta_SQL</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{5665584b-f9c1-4cf2-a821-f8d6dacbfaae}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Meta_SQL</RootNamespace>
+    <AssemblyName>Meta_SQL</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Creation" />
+    <Folder Include="Creation\Schemas" />
+    <Folder Include="Creation\Tables" />
+    <Folder Include="Creation\Views" />
+    <Folder Include="Stored Procedures" />
+    <Folder Include="Stored Procedures\DB Meta Data" />
+    <Folder Include="Stored Procedures\Job Runs" />
+    <Folder Include="Creation\Tables\powerbi" />
+    <Folder Include="Creation\Tables\powerbi\Meta Data" />
+    <Folder Include="Creation\Tables\powerbi\Jobs" />
+    <Folder Include="Gen" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Creation\Schemas\powerbi.sql" />
+    <Build Include="Creation\Tables\powerbi\Meta Data\powerbi.AboutTables.sql" />
+    <Build Include="Creation\Tables\powerbi\Meta Data\powerbi.AllTables.sql" />
+    <Build Include="Creation\Tables\powerbi\Meta Data\powerbi_AllDatabases.sql" />
+    <Build Include="Creation\Tables\powerbi\Meta Data\powerbi.AllViews.sql" />
+    <Build Include="Creation\Tables\powerbi\Meta Data\powerbi.AboutViews.sql" />
+    <Build Include="Creation\Tables\powerbi\Jobs\powerbi_Executions.sql" />
+    <Build Include="Creation\Tables\powerbi\Jobs\powerbi_Jobs.sql" />
+    <Build Include="Creation\Tables\powerbi\Jobs\powerbi_Schedules.sql" />
+    <Build Include="Creation\Tables\powerbi\Meta Data\powerbi.AllColumns.sql" />
+    <None Include="Stored Procedures\DB Meta Data\Tables_Row_Count.sql" />
+    <None Include="Stored Procedures\DB Meta Data\Views_Row_Count.sql" />
+    <Build Include="Creation\Views\api_Tables.sql" />
+    <Build Include="Creation\Schemas\api.sql" />
+    <Build Include="Creation\Views\api_Databases.sql" />
+    <Build Include="Creation\Views\api_Jobs.sql" />
+    <PreDeploy Include="Gen\createEnvironmentC_H.sql" />
+    <PostDeploy Include="Gen\createJobCarryHomeMeta.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Meta-SQL.publish.xml" />
+  </ItemGroup>
+</Project>

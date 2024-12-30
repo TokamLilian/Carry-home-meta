@@ -1,4 +1,46 @@
-﻿USE msdb;
+﻿USE SSISDB;
+GO
+
+DECLARE @EnvironmentName NVARCHAR(255) = N'DEV';
+DECLARE @FolderName NVARCHAR(255) = N'CarryHomeMeta';
+DECLARE @VariableName NVARCHAR(255) = N'ConnectionString'; 
+
+BEGIN TRY
+    -- Check if the folder exists
+    IF NOT EXISTS (
+        SELECT 1
+        FROM catalog.folders AS f
+        WHERE f.name = @FolderName
+    )
+    BEGIN
+        RETURN;
+    END
+
+    -- Check if the environment already exists
+    IF NOT EXISTS (
+        SELECT 1
+        FROM catalog.environments AS env
+        INNER JOIN catalog.folders AS f ON env.folder_id = f.folder_id
+        WHERE env.name = @EnvironmentName -- Correct column name for environment
+          AND f.name = @FolderName -- Correct column name for folder
+    )
+    BEGIN
+        -- Create the environment in the specified project folder
+        EXEC catalog.create_environment
+            @environment_name = @EnvironmentName,
+            @folder_name = @FolderName;
+    END
+END TRY
+BEGIN CATCH
+    -- Handle errors if any occur during the process
+    PRINT 'An error occurred: ' + ERROR_MESSAGE();
+    -- Optionally, you can log the error or perform additional error handling here.
+END CATCH
+GO
+
+----
+
+USE msdb;
 GO
 
 -- Check if the job already exists, and drop it if necessary

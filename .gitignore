@@ -2,3 +2,7 @@
 *.css.map
 *.sass.map
 *.scss.map
+Meta-SQL/bin/Debug/*
+Meta-SQL/obj/Debug/*
+Meta-SSIS/obj/Development/*
+

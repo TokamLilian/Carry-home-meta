@@ -79,13 +79,13 @@
     <Build Include="Creation\Tables\powerbi\Jobs\powerbi_Jobs.sql" />
     <Build Include="Creation\Tables\powerbi\Jobs\powerbi_Schedules.sql" />
     <Build Include="Creation\Tables\powerbi\Meta Data\powerbi.AllColumns.sql" />
-    <None Include="Stored Procedures\DB Meta Data\Tables_Row_Count.sql" />
-    <None Include="Stored Procedures\DB Meta Data\Views_Row_Count.sql" />
+    <Build Include="Stored Procedures\DB Meta Data\Tables_Row_Count.sql" />
+    <Build Include="Stored Procedures\DB Meta Data\Views_Row_Count.sql" />
     <Build Include="Creation\Views\api_Tables.sql" />
     <Build Include="Creation\Schemas\api.sql" />
     <Build Include="Creation\Views\api_Databases.sql" />
     <Build Include="Creation\Views\api_Jobs.sql" />
-    <PreDeploy Include="Gen\createEnvironmentC_H.sql" />
+    <None Include="Gen\createEnvironmentC_H.sql" />
     <PostDeploy Include="Gen\createJobCarryHomeMeta.sql" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,8 @@
-﻿    DECLARE @DatabaseName NVARCHAR(255)
+﻿CREATE PROCEDURE powerbi.InsertTableRowCounts
+AS
+BEGIN
+
+    DECLARE @DatabaseName NVARCHAR(255)
     DECLARE @SQL NVARCHAR(MAX)
 
     DECLARE db_cursor CURSOR FOR
@@ -42,3 +46,5 @@
 
     CLOSE db_cursor
     DEALLOCATE db_cursor
+
+END;

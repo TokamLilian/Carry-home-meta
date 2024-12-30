@@ -147,9 +147,11 @@ Exploit-my-data/
 │       ├── createJobCarryHomeMeta.sql
 |       
 └── 
-    
 ```
+
 - **SSIS Packages**:
+```markdown
+
 │
 ├── EMD_SSIS/
 │   ├── Jobs Extract.dtsx
@@ -162,6 +164,7 @@ Exploit-my-data/
 │   ├── Project.params
 |
 └── 
+```
 
 - **Power BI Report**:  
   - `Databases Metadata.pbit`: Power BI report template that includes all default visualizations and queries.
